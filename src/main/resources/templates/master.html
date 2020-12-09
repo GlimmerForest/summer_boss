@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="author" content="john">
+
+  <title> Home - Summer Boss Site </title>
+
+  <!--自定义样式-->
+  <link th:href="@{/common.css}" rel="stylesheet">
+  <!-- Bootstrap 3.3.7 -->
+  <link th:href="@{/plugins/bootstrap-3.3.7-dist/css/bootstrap.css}" rel="stylesheet">
+  <!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">-->
+</head>
+
+<body class="frontpage theme-font-serif theme-color-earth">
+
+  <header th:replace="components/header :: header"></header>
+
+  <section th:fragment="content"></section>
+
+  <footer th:insert="~{components/footer :: footer}" th:class="odd"></footer>
+</body>
+
+</html>

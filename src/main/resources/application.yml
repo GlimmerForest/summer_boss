@@ -1,0 +1,117 @@
+logging:
+  config: classpath:logback.xml
+
+server:
+  port: 8081
+
+spring:
+  application:
+    name: thymeleaf-demo
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    default-property-inclusion: non_null
+  servlet:
+    multipart:
+      maxFileSize: 5MB
+      maxRequestSize: 50MB
+      location: /data/cms/upload
+
+  thymeleaf:
+    cache: false
+    encoding: UTF-8
+    mode: HTML5
+    prefix: classpath:/templates/
+    suffix: .html
+    enabled: true
+
+  datasource:
+    name: boss
+    url: jdbc:postgresql://175.24.121.139:7003/summer_boss?useAffectedRows=true&currentSchema=public
+    username: postgres
+    password: admin
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: org.postgresql.Driver
+    druid:
+      filters: stat
+      maxActive: 40
+      initialSize: 1
+      maxWait: 60000
+      minIdle: 1
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: select 'x'
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      poolPreparedStatements: true
+      maxOpenPreparedStatements: 20
+      stat-view-servlet:
+        enabled: true
+        url-pattern: /druid/* # 监控页面路径: http://localhost:8080/druid/index.html
+    # 分布式事务配置
+    xa:
+      properties:
+        maxWaitMillis: -1 # 参考 DataSourceProperties 配置
+      data-source-class-name: com.alibaba.druid.pool.xa.DruidXADataSource
+  redis:
+    database: 0
+    host: 175.24.121.139
+    port: 7000
+    password: admin
+    jedis:
+      pool:
+        max-active: 30  # 连接池最大连接数（使用负值表示没有限制）
+        max-wait: -1  # 连接池最大阻塞等待时间（使用负值表示没有限制）
+        max-idle: 30  # 连接池中的最大空闲连接
+        min-idle: 7  # 连接池中的最小空闲连接
+    timeout: 6000  # 连接超时时间（毫秒）
+  rabbitmq:
+    host: 175.24.121.139
+    port: 7001
+    username: admin
+    password: admin
+    virtual-host: admin
+
+  main:
+    allow-bean-definition-overriding: true
+
+knife4j:
+  enable: true
+
+#mybatis-plus:
+#  typeAliasesPackage: com.arvato.cms.orm.*.model
+#  mapperLocations: classpath*:com/orm/**/dao/mapping/*.xml
+#  globalConfig:
+#    dbConfig:
+#      dbType: postgresql
+#      idType: 0  #0:数据库ID自增   1:用户输入id  2:全局唯一id(IdWorker)  3:全局唯一ID(uuid)
+#    dbColumnUnderline: false
+#    refresh: true
+#  configuration:
+#    mapUnderscoreToCamelCase: true
+#    cacheEnabled: true #配置的缓存的全局开关
+#    lazyLoadingEnabled: true #延时加载的开关
+#    multipleResultSetsEnabled: true #开启的话，延时加载一个属性时会加载该对象全部属性，否则按需加载属性
+#    logImpl: org.apache.ibatis.logging.slf4j.Slf4jImpl #打印sql语句,调试用
+
+azure:
+  account-name:
+  account-key:
+  end-point:
+  protocol:
+  container-name:
+  image-catalog:
+  baseUrl:
+
+self-define-properties:
+  resourceBasePaths:
+    - classpath:/
+    - classpath:/META-INF/resources/
+#  linux配置
+#  resourceBasePath:
+#    - file:/data/app/resources/
+#    - classpath:/META-INF/resources/
+  messageBasePath: classpath:messages/message
+#  linux配置
+#    messageBasePath: file:/data/app/resources/messages/message

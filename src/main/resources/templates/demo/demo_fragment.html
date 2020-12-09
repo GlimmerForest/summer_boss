@@ -1,0 +1,19 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="header(title,links)">
+    <meta charset="UTF-8">
+    <title th:replace="${title}"></title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <!--自定义样式-->
+    <!-- Bootstrap 3.3.7 -->
+    <link th:href="@{/plugins/bootstrap-3.3.7-dist/css/bootstrap.css}" rel="stylesheet">
+
+    <th:block th:replace="${links}" />
+</head>
+
+<div th:fragment="body-header">
+    <a th:href="@{/demo/2}">用户管理</a>
+    <a th:href="@{${model.staticPath}}">静态页面</a>
+</div>
+
+</html>

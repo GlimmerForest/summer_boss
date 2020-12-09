@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="content" >
+<body th:class="odd">
+    <div>
+        <a th:href="@{/user/form}">添加用户</a>
+    </div>
+
+    <table border="1">
+        <thead>
+        <tr>
+            <td>ID</td>
+            <td>名字</td>
+            <td>电话</td>
+            <td>性别</td>
+            <td>内置对象操作</td>
+            <td>奇偶性</td>
+            <td>操作</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${userModel.userList.size()} eq 0">
+            <td colspan="3">没有用户信息!</td>
+        </tr>
+        <tr th:each="user,row : ${userModel.userList}" th:class="${row.odd}? 'odd' : 'even'">
+            <td th:text="${user.userId}"></td>
+            <td th:text="${user.userName}"></td>
+            <td th:text="${user.mobile}"></td>
+            <td th:text="${user.gender}"></td>
+            <td th:text="${#strings.defaultString(user.gender,'default')}">123</td>
+            <td th:text="${row.odd}"></td>
+            <td><a th:href="@{/user/form(id=${user.userId})}">编辑</a> | <a th:href="@{/user/delete(id=${user.userId})}">删除</a></td>
+        </tr>
+        </tbody>
+    </table>
+</body>
+</html>

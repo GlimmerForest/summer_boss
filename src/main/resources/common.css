@@ -1,0 +1,7 @@
+table tbody tr .odd {
+    color: red;
+}
+
+table tbody tr  .even {
+    color: #4cae4c;
+}

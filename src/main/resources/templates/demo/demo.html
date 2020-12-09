@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--head 替换-->
+<head th:replace="~{demo/demo_fragment :: header(~{::title},~{::link})}">
+<!--    每个页面个性化引用-->
+    <title th:text="thymeleaf-demo">test</title>
+    <link th:href="@{/templates/demo/demo.css}" rel="stylesheet">
+</head>
+<body th:style="'padding-left:'+ ${model.paddingLeft} +';padding-top:'+${model.paddingTop}" th:with="r = ${#strings.arraySplit(model.arrString, ',')}, rr = ${r[0]} + ',' + ${r[1]} + ',' + ${r[0]} + ',' + ${r[1]}" >
+
+    <div>
+        <b th:text = "#{greet}"></b>
+        <b th:text = "#{greet}"></b>
+    </div>
+
+    <img th:src="@{/images/logo.jpg}" th:title="#{logo}" th:alt="#{alt}" />
+
+<!--    计算值并存在中间变量里供子节点使用(内容可以是html片段,也可以是具体的值)-->
+    <div >
+        <b th:text = "${rr}"></b>
+    </div>
+
+    <div th:with="r = ${#strings.arraySplit(model.arrString, ',')}">
+        <b th:text = "${r}"></b>
+    </div>
+
+    <div th:with="frag=~{demo/demo_fragment :: body-header}">
+        <p th:insert="${frag}">
+        <p th:replace="${frag}">
+    </div>
+
+<!--    列表遍历-->
+    <div th:class="odd1" style="padding-top:20px">
+        <table th:border="1" ><thead><tr>
+            <td>ID</td><td>名字</td><td>电话</td><td>性别</td><td>内置对象操作</td><td>奇偶性</td><td>操作</td>
+        </tr></thead>
+            <tbody>
+<!--            条件判断-->
+            <tr th:if="${model.userList.size()} eq 0">
+                <td colspan="3">没有用户信息!</td>
+            </tr>
+<!--            除非条件不等于0,否则一直执行-->
+            <tr th:unless="${model.userList.size()} eq 0">
+                <td colspan="3">用户信息如下!</td>
+            </tr>
+<!--            遍历-->
+            <tr th:each="user,row : ${model.userList}" th:class="${row.odd}? 'odd' : 'even'">
+                <td th:text="${user.userId}"></td>
+                <td th:text="${user.userName}"></td>
+                <td th:text="${user.mobile}"></td>
+                <td th:text="${user.gender}"></td>
+                <td th:text="${#strings.defaultString(user.gender,'default')}">123</td>
+                <td th:text="${row.odd}"></td>
+                <td><a th:href="@{/demo/2}">编辑</a> | <a th:href="@{/demo/2(id=${user.userId})}">删除</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+<!--    表单赋值-->
+    <div style="padding-top:20px">
+        <form th:action="@{/demo/2}" method="post" th:object="${model.user}">
+            <input type="hidden" name="userId" th:value="*{userId}">
+            名字:
+            <input type="text" name="userName" th:value="*{userName}">
+            电话:
+            <input type="text" name="mobile" th:value="*{mobile}">
+            性别:
+            <input type="text" name="gender" th:value="*{gender}">
+            <br>
+            <input type="submit" value="提交">
+            <input type="reset" value="重置" />
+        </form>
+    </div>
+
+<!--    js函数调用-->
+    <div style="padding-top:20px">
+        <button class="btn" th:onclick="getName([[${model.staticPath}]])">获得名字</button>
+    </div>
+
+    <div style="padding-top:20px">
+        <button class="btn" th:onclick="langTest([[#{greet}]])">多语言测试</button>
+    </div>
+
+    <div th:text="自定义标签"></div>
+    <div self:demo="${model.arrString}"></div>
+
+    <script>
+        function getName(name) {
+            console.log(name)
+        }
+        
+        function langTest(name) {
+            console.log(name)
+            console.log("[[#{greet}]]")
+        }
+    </script>
+</body>
+</html>
