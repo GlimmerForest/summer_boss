@@ -79,23 +79,20 @@ spring:
 knife4j:
   enable: true
 
-#mybatis-plus:
-#  typeAliasesPackage: com.arvato.cms.orm.*.model
-#  mapperLocations: classpath*:com/orm/**/dao/mapping/*.xml
-#  globalConfig:
-#    dbConfig:
-#      dbType: postgresql
-#      idType: 0  #0:数据库ID自增   1:用户输入id  2:全局唯一id(IdWorker)  3:全局唯一ID(uuid)
-#    dbColumnUnderline: false
-#    refresh: true
-#  configuration:
-#    mapUnderscoreToCamelCase: true
-#    cacheEnabled: true #配置的缓存的全局开关
-#    lazyLoadingEnabled: true #延时加载的开关
-#    multipleResultSetsEnabled: true #开启的话，延时加载一个属性时会加载该对象全部属性，否则按需加载属性
-#    logImpl: org.apache.ibatis.logging.slf4j.Slf4jImpl #打印sql语句,调试用
+mybatis-plus:
+  typeAliasesPackage: com.william.boss.orm.model
+  mapperLocations: classpath*:com/orm/william/boss/orm/dao/mapping/*.xml
+  globalConfig:
+    dbConfig:
+      idType: AUTO
+  configuration:
+    mapUnderscoreToCamelCase: true
+    cacheEnabled: true #配置的缓存的全局开关
+    lazyLoadingEnabled: true #延时加载的开关
+    multipleResultSetsEnabled: true #开启的话，延时加载一个属性时会加载该对象全部属性，否则按需加载属性
+    logImpl: org.apache.ibatis.logging.slf4j.Slf4jImpl #打印sql语句,调试用
 
-azure:
+cloud:
   account-name:
   account-key:
   end-point:

@@ -1,4 +1,4 @@
-package com.william.boss.config;
+package com.william.boss.properties;
 
 import lombok.Getter;
 import lombok.Setter;

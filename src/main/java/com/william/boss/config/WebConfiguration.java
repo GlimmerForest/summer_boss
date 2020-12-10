@@ -2,6 +2,7 @@ package com.william.boss.config;
 
 import com.william.boss.filter.ResponseFilter;
 import com.william.boss.aop.CommonHandlerInterceptor;
+import com.william.boss.properties.SelfDefineProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
