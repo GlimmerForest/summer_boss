@@ -92,15 +92,6 @@ mybatis-plus:
     multipleResultSetsEnabled: true #开启的话，延时加载一个属性时会加载该对象全部属性，否则按需加载属性
     logImpl: org.apache.ibatis.logging.slf4j.Slf4jImpl #打印sql语句,调试用
 
-cloud:
-  account-name:
-  account-key:
-  end-point:
-  protocol:
-  container-name:
-  image-catalog:
-  baseUrl:
-
 self-define-properties:
   resourceBasePaths:
     - classpath:/
@@ -112,3 +103,11 @@ self-define-properties:
   messageBasePath: classpath:messages/message
 #  linux配置
 #    messageBasePath: file:/data/app/resources/messages/message
+  cloud:
+    accountName:
+    accountKey:
+    endPoint: core.chinacloudapi.cn
+    protocol: https
+    containerName: boss
+    baseUrl:
+    type: azure  # azure 微软云

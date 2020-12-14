@@ -80,15 +80,18 @@ public class CodeGeneratorForPostGreSql {
 
 	public static void main(String[] args) {
 		String[] tables = new String[]{
-				"summer_boss_data_auth",
-				"summer_boss_department",
-				"summer_boss_dict",
-				"summer_boss_menu",
-				"summer_boss_operation_log",
-				"summer_boss_role",
-				"summer_boss_role_menu",
-				"summer_boss_user_department",
-				"summer_boss_user_role"
+//				"summer_boss_data_auth",
+//				"summer_boss_department",
+//				"summer_boss_dict",
+//				"summer_boss_menu",
+//				"summer_boss_operation_log",
+//				"summer_boss_role",
+//				"summer_boss_role_menu",
+//				"summer_boss_user_department",
+//				"summer_boss_user_role",
+				"summer_platform_tenant",
+				"summer_platform_db_resource",
+				"summer_platform_user"
 				 };
 		String outputDir = "D:\\demo\\summer_boss\\src\\main\\java";
 		String basePackage = "com.william.boss.orm.%s";
