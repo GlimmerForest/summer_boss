@@ -20,7 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Order(1)
 public class CommonHandlerAop {
 
-    @Pointcut("execution(public * com.thymeleafdemo.controller..*Controller.*(..))")
+    @Pointcut("execution(public * com.william.boss.controller..*Controller.*(..))")
     public void controllerInterceptor() {
     }
 

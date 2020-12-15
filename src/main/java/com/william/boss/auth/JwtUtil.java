@@ -1,9 +1,11 @@
 package com.william.boss.auth;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.william.boss.constant.CommonConstants;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.jackson.io.JacksonDeserializer;
+import io.jsonwebtoken.jackson.io.JacksonSerializer;
+import io.jsonwebtoken.lang.Maps;
 import io.jsonwebtoken.security.Keys;
 import org.joda.time.DateTime;
 
@@ -17,9 +19,15 @@ public class JwtUtil {
 
     private static final Key KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
+    /**
+     * 生成token
+     * @param jwtInfo jwt payload 信息
+     * @param expire 过期时间, 单位秒
+     * @return jwt token
+     */
     public static String generateToken(JwtInfo jwtInfo, int expire) {
-
         return Jwts.builder()
+                .serializeToJsonWith(new JacksonSerializer<>())
                 .setSubject(jwtInfo.getUsername())
                 .claim(CommonConstants.JWT_KEY_USER, jwtInfo)
                 .setExpiration(DateTime.now().plusSeconds(expire).toDate())
@@ -32,8 +40,10 @@ public class JwtUtil {
      * @param token token
      * @return 用户信息
      */
+    @SuppressWarnings("unchecked,rawtypes")
     public static JwtInfo getInfoFromToken(String token) {
         return Jwts.parserBuilder()
+                .deserializeJsonWith(new JacksonDeserializer(Maps.of(CommonConstants.JWT_KEY_USER, JwtInfo.class).build()))
                 .setSigningKey(KEY).build().parseClaimsJws(token).getBody().get(CommonConstants.JWT_KEY_USER, JwtInfo.class);
     }
 

@@ -125,7 +125,6 @@
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-jackson</artifactId> <!-- or jjwt-gson if Gson is preferred -->
             <version>${jjwt.version}</version>
-            <scope>runtime</scope>
         </dependency>
     </dependencies>
 
