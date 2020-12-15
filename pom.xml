@@ -22,6 +22,8 @@
         <druid.version>1.2.3</druid.version>
         <velocity.version>2.2</velocity.version>
         <azure.version>1.2.8</azure.version>
+        <jjwt.version>0.11.2</jjwt.version>
+        <bcprov.version>1.67</bcprov.version>
     </properties>
 
     <dependencies>
@@ -100,6 +102,30 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcprov-jdk15on</artifactId>
+            <version>${bcprov.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-api</artifactId>
+            <version>${jjwt.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-impl</artifactId>
+            <version>${jjwt.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-jackson</artifactId> <!-- or jjwt-gson if Gson is preferred -->
+            <version>${jjwt.version}</version>
+            <scope>runtime</scope>
         </dependency>
     </dependencies>
 
