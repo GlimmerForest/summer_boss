@@ -8,17 +8,22 @@ import java.security.*;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 
+/**
+ * @author john
+ */
 public class RsaUtil {
     /**
      * 获取公钥
-     * @param filename
-     * @return
-     * @throws Exception
+     * @param filename 公钥文件
+     * @return 公钥
+     * @throws Exception 读文件、解密相关异常
      */
     public PublicKey getPublicKey(String filename) throws Exception {
-        InputStream resourceAsStream = this.getClass().getClassLoader().getResourceAsStream(filename);
-        DataInputStream dis = new DataInputStream(resourceAsStream);
-        byte[] keyBytes = new byte[resourceAsStream.available()];
+        DataInputStream dis = dataInputStream(filename);
+        if (dis == null) {
+            return null;
+        }
+        byte[] keyBytes = new byte[dis.available()];
         dis.readFully(keyBytes);
         dis.close();
         X509EncodedKeySpec spec = new X509EncodedKeySpec(keyBytes);
@@ -27,15 +32,17 @@ public class RsaUtil {
     }
 
     /**
-     * 获取密钥
-     * @param filename
-     * @return
-     * @throws Exception
+     * 获取私钥
+     * @param filename 私钥文件
+     * @return 私钥
+     * @throws Exception 读文件、解密相关异常
      */
     public PrivateKey getPrivateKey(String filename) throws Exception {
-        InputStream resourceAsStream = this.getClass().getClassLoader().getResourceAsStream(filename);
-        DataInputStream dis = new DataInputStream(resourceAsStream);
-        byte[] keyBytes = new byte[resourceAsStream.available()];
+        DataInputStream dis = dataInputStream(filename);
+        if (dis == null) {
+            return null;
+        }
+        byte[] keyBytes = new byte[dis.available()];
         dis.readFully(keyBytes);
         dis.close();
         PKCS8EncodedKeySpec spec = new PKCS8EncodedKeySpec(keyBytes);
@@ -43,15 +50,23 @@ public class RsaUtil {
         return kf.generatePrivate(spec);
     }
 
+    private DataInputStream dataInputStream(String filename) {
+        InputStream resourceAsStream = this.getClass().getClassLoader().getResourceAsStream(filename);
+        if (resourceAsStream == null) {
+            return null;
+        }
+        return new DataInputStream(resourceAsStream);
+    }
+
     /**
      * 生存rsa公钥和密钥
-     * @param publicKeyFilename
-     * @param privateKeyFilename
-     * @param password
-     * @throws IOException
-     * @throws NoSuchAlgorithmException
+     * @param publicKeyFilename 公钥文件名
+     * @param privateKeyFilename 私钥文件名
+     * @param password 加密关键字
+     * @throws IOException io 异常
+     * @throws NoSuchAlgorithmException 算法不存在异常
      */
-    public void generateKey(String publicKeyFilename,String privateKeyFilename,String password) throws IOException, NoSuchAlgorithmException {
+    public static void generateKey(String publicKeyFilename,String privateKeyFilename,String password) throws IOException, NoSuchAlgorithmException {
         KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
         SecureRandom secureRandom = new SecureRandom(password.getBytes());
         keyPairGenerator.initialize(1024, secureRandom);
@@ -66,5 +81,8 @@ public class RsaUtil {
         fos.close();
     }
 
+    public static void main(String[] args) {
+        String publicKeyFilename = "";
+    }
 }
 

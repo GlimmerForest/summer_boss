@@ -25,9 +25,10 @@ public interface IPlatformUserService {
     /**
      * 获取用户信息
      * @param id 用户id
+     * @param username 用户名
      * @return 用户信息
      */
-    UserVO get(Integer id);
+    UserVO getUser(Integer id, String username);
 
     /**
      * 用户列表

@@ -8,6 +8,10 @@ import com.william.boss.utils.JsonUtil;
 import com.william.boss.vo.user.UserQueryParams;
 import com.william.boss.vo.user.UserVO;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -23,10 +27,23 @@ public class PlatformUserServiceImpl implements IPlatformUserService {
     @Resource
     private PlatformUserMapper userMapper;
 
+
     @Override
     public void save(UserVO userVO) {
         PlatformUser user = new PlatformUser();
         BeanUtil.copyProperties(userVO, user, null, true);
+
+        Object context = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(context, null, null);
+
+        if (context instanceof UserDetails) {
+//            (UserDetails)context;
+        }
+
+//        AuthenticationProvider
+
+
     }
 
     @Override
@@ -35,7 +52,7 @@ public class PlatformUserServiceImpl implements IPlatformUserService {
     }
 
     @Override
-    public UserVO get(Integer id) {
+    public UserVO getUser(Integer id, String username) {
         return null;
     }
 
