@@ -56,6 +56,11 @@ public class JwtUtil {
         return Jwts.parserBuilder().setSigningKey(KEY).build().parseClaimsJws(token).getBody().getExpiration();
     }
 
+    public static String refreshToken(String token) {
+        return JwtUtil.generateToken(JwtUtil.getInfoFromToken(token), 7200);
+
+    }
+
     public static void main(String[] args) {
         System.out.println(Keys.secretKeyFor(SignatureAlgorithm.HS256));
 
@@ -65,7 +70,9 @@ public class JwtUtil {
 
         System.out.println(jws);
 
-        System.out.println(getInfoFromToken(jws));
+        Object obj = getInfoFromToken(jws);
+
+        System.out.println(obj);
 
         System.out.println(getTokenExpire(jws));
     }

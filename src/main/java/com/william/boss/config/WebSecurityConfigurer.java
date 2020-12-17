@@ -1,5 +1,7 @@
 package com.william.boss.config;
 
+import com.william.boss.auth.TokenErrorEntryPoint;
+import com.william.boss.filter.JwtAuthenticationTokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,6 +14,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.access.AccessDeniedHandlerImpl;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.annotation.Resource;
@@ -24,11 +28,11 @@ import javax.annotation.Resource;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
     @Resource
-    private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
-    @Resource
-    private RestAccessDeniedHandler restAccessDeniedHandler;
+    private TokenErrorEntryPoint tokenErrorEntryPoint;
     @Resource
     private JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
+    @Resource(name = "bossUserDetailsService")
+    private UserDetailsService userDetailsService;
 
 
     @Override
@@ -40,40 +44,38 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
         // 请求进行拦截 验证 accessToken
         http.authorizeRequests()
                 //指定需要拦截的uri
-                .antMatchers("/api-user/web/**").authenticated()
+                .antMatchers("/boss/login/**").permitAll()
+                .antMatchers("/boss/**").authenticated()
+                .antMatchers("/rest/**").authenticated()
+                .antMatchers("/doc.html").hasAuthority("ROLE_ADMIN")
                 ///其他请求都可以访问
                 .anyRequest().permitAll()
-                .and().exceptionHandling()
-                .authenticationEntryPoint(jwtAuthenticationEntryPoint)//身份访问异常
-                .accessDeniedHandler(restAccessDeniedHandler)//权限访问异常
+                .and().exceptionHandling().authenticationEntryPoint(tokenErrorEntryPoint)
+                .accessDeniedHandler(accessDeniedHandlerImpl())
                 //解决跨域
-                .and()
-                .cors()
+                .and().cors()
                 // 关闭csrf防护
-                .and()
-                .csrf()
-                .disable();
+                .and().csrf().disable();
     }
 
     @Bean
-    protected UserDetailsService customUserService() {//注册UserDetailsService的bean
-        return new CustomUserService();
-    }
-
-    //SpringBoot2.x后需要使用BCrypt强哈希方法来加密密码，如果不加的话登录不上并且控制台会有警告Encoded password does not look like BCrypt
-    @Bean
-    public BCryptPasswordEncoder PasswordEncoder() {
+    public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public AccessDeniedHandler accessDeniedHandlerImpl() {
+        return new AccessDeniedHandlerImpl();
     }
 
     @Autowired
     public void configureAuthentication(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(customUserService()).passwordEncoder(PasswordEncoder());
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(customUserService());
+        auth.userDetailsService(userDetailsService);
     }
 
     @Bean

@@ -103,11 +103,15 @@ self-define-properties:
   messageBasePath: classpath:messages/message
 #  linux配置
 #    messageBasePath: file:/data/app/resources/messages/message
-  cloud:
+  cloudConfig:
     accountName:
     accountKey:
     endPoint: core.chinacloudapi.cn
     protocol: https
     containerName: boss
     baseUrl:
-    type: azure  # azure 微软云
+    type:   # azure 微软云
+
+  authConfig:
+    apiTokenHeader: access-token
+    expire: 7200

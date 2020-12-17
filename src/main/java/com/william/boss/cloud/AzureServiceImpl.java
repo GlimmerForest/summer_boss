@@ -43,12 +43,12 @@ public class AzureServiceImpl implements ICloudService {
             // 获得StorageAccount对象
             String format = "DefaultEndpointsProtocol={0};AccountName={1};AccountKey={2};EndpointSuffix={3}";
             CloudStorageAccount storageAccount = CloudStorageAccount
-                    .parse(MessageFormat.format(format, properties.getCloud().getProtocol(), properties.getCloud().getAccountName(),
-                            properties.getCloud().getAccountKey(), properties.getCloud().getEndPoint()));
+                    .parse(MessageFormat.format(format, properties.getCloudConfig().getProtocol(), properties.getCloudConfig().getAccountName(),
+                            properties.getCloudConfig().getAccountKey(), properties.getCloudConfig().getEndPoint()));
             // 由StorageAccount对象创建BlobClient
             CloudBlobClient blobClient = storageAccount.createCloudBlobClient();
             // 根据传入的containerName, 获得container实例
-            container = blobClient.getContainerReference(properties.getCloud().getContainerName());
+            container = blobClient.getContainerReference(properties.getCloudConfig().getContainerName());
         } catch (URISyntaxException | InvalidKeyException | StorageException e) {
             log.error("azure云存储服务初始化失败:", e);
         }
@@ -77,7 +77,7 @@ public class AzureServiceImpl implements ICloudService {
                 log.debug("文件 {} 上传成功", file.getName());
                 file.deleteOnExit();
             }
-            String baseUrl = properties.getCloud().getBaseUrl();
+            String baseUrl = properties.getCloudConfig().getBaseUrl();
             return baseUrl !=null ? blob.getUri().toString().replace(baseUrl,"") : blob.getUri().toString();
         } catch (URISyntaxException | StorageException | IOException e) {
             log.error("azure云存储服务上传文件失败:", e);
@@ -95,7 +95,7 @@ public class AzureServiceImpl implements ICloudService {
             // 将本地文件上传到Azure Container
             blob.upload(inputStream, size);
 
-            String baseUrl = properties.getCloud().getBaseUrl();
+            String baseUrl = properties.getCloudConfig().getBaseUrl();
             return baseUrl !=null ? blob.getUri().toString().replace(baseUrl,"") : blob.getUri().toString();
         } catch (URISyntaxException | StorageException | IOException e) {
             log.error("azure云存储服务上传文件失败:", e);

@@ -26,7 +26,9 @@ public class SelfDefineProperties {
     /**
      * 云存储配置
      */
-    private CloudConfig cloud;
+    private CloudConfig cloudConfig;
+
+    private AuthConfig authConfig;
 
     @Getter
     @Setter
@@ -59,5 +61,18 @@ public class SelfDefineProperties {
          * 类型  azure:微软云
          */
         private String type;
+    }
+
+    @Getter
+    @Setter
+    public static class AuthConfig {
+        /**
+         * 接口密码
+         */
+        private String apiTokenHeader;
+        /**
+         * 过期时间
+         */
+        private Integer expire;
     }
 }

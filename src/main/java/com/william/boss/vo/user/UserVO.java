@@ -68,4 +68,9 @@ public class UserVO {
 
     @ApiModelProperty(value = "性别", position = 17)
     private String gender;
+
+    /**
+     * 用户角色
+     */
+    private List<String> roles;
 }

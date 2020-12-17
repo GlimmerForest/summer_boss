@@ -15,7 +15,11 @@ public enum ResponseCodeEnum {
     /**
      * 请求成功
      */
-    SUCCESS(200, "success");
+    SUCCESS(200, "success"),
+    /**
+     * token错误
+     */
+    TOKEN_ERROR(600, "success");
 
     ResponseCodeEnum(Integer  code, String message) {
         this.code = code;

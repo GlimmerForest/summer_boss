@@ -5,17 +5,21 @@ import com.william.boss.service.IPlatformUserService;
 import com.william.boss.vo.ResponseResult;
 import com.william.boss.vo.user.UserVO;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author john
  */
-@Component("customUserService")
+@Component("bossUserDetailsService")
 @Slf4j
 public class BossUserDetailsServiceImpl implements UserDetailsService {
 
@@ -30,33 +34,19 @@ public class BossUserDetailsServiceImpl implements UserDetailsService {
             log.info("用户{}不存在", username);
             return null;
         }
+        // 提取用户及角色信息
+        UserVO user = response.getData();
         if (ResponseCodeEnum.SUCCESS.getCode().equals(response.getCode())) {
-            try {
-                //转化
-                UserVO user = response.getData();
-                //用户信息处理
-                SecurityUser securityUser = new SecurityUser();
-                securityUser.setEmail(loginEntity.getData().getManagerUser().getEmail());
-                securityUser.setPassword(String.valueOf(loginEntity.getData().getManagerUser().getPassword()));
-                securityUser.setSign(loginEntity.getData().getManagerUser().isSign());
-                //角色处理
-                List<SecurityRole> roleList = new ArrayList<>();
-                List<UserLoginEntity.DataBean.RoleListBean> roleListBeans = loginEntity.getData().getRoleList();
-                for (UserLoginEntity.DataBean.RoleListBean roleListBean : roleListBeans) {
-                    SecurityRole securityRole = new SecurityRole();
-                    securityRole.setName(roleListBean.getName());
-                    securityRole.setCodeName(roleListBean.getCodeName());
-                    roleList.add(securityRole);
-                }
-                securityUser.setRoleList(roleList);
-                return securityUser;
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-                return null;
+            //用户角色封装处理
+            List<SimpleGrantedAuthority> authorities = new ArrayList<>(10);
+            if (user.getRoles() != null) {
+                user.getRoles().forEach(f -> authorities.add(new SimpleGrantedAuthority(f)));
             }
+
+            return new User(username, user.getPassword(), authorities);
         } else {
-            System.out.println(response.getCode() + ":" + response.getMsg());
-            return null;
+            log.info(response.getCode() + ":" + response.getMessage());
         }
+        return null;
     }
 }
