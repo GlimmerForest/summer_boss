@@ -47,7 +47,7 @@ public class UserController {
         return new ModelAndView("redirect:/user/list");
     }
 
-    @RequestMapping("/delete")
+    @DeleteMapping("/delete")
     @ApiOperation("user delete")
     private ModelAndView delete(Integer id) {
         userService.delete(id);

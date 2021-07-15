@@ -125,7 +125,7 @@ location:
   appKey: Y8125nlttvjMzqrK9n4mVEnNYnmccfoq   # 百度应用访问key,申请并激活百度开发者账号,创建个应用就可以获得
 
 swagger:
-  basePackage: com.william.boss.rest
+  basePackage: com.william.boss
   description: 项目接口文档url (http://localhost[:port]/doc.html)
   globalParams:
     - name: token

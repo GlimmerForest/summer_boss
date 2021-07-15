@@ -10,11 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
-import javax.sql.DataSource;
 import java.util.*;
 
 /**
@@ -29,7 +27,7 @@ public class DemoController {
     @Resource
     private MessageSource messageSource;
 
-    @RequestMapping("/2")
+    @GetMapping("/2")
     @ApiOperation("thymeleaf")
     public ModelAndView demo(Model model, @ModelAttribute UserDTO userInfo, Integer id, String lang) {
         // 测试遍历
