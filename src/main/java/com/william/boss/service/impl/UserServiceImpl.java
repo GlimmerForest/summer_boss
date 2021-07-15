@@ -1,6 +1,6 @@
 package com.william.boss.service.impl;
 
-import com.william.boss.orm.model.UserInfo;
+import com.william.boss.dto.UserDTO;
 import com.william.boss.service.IUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -18,27 +18,27 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Slf4j
 public class UserServiceImpl implements IUserService {
     AtomicInteger index = new AtomicInteger(0);
-    Map<Integer, UserInfo> users = new ConcurrentHashMap<>(10);
+    Map<Integer, UserDTO> users = new ConcurrentHashMap<>(10);
 
     @Override
-    public List<UserInfo> getAllUsers() {
+    public List<UserDTO> getAllUsers() {
         log.info(users.values().toString());
         return new ArrayList<>(users.values());
     }
 
     @Override
-    public void addOrEdit(UserInfo userInfo) {
-        Integer id = userInfo.getUserId();
+    public void addOrEdit(UserDTO userDTO) {
+        Integer id = userDTO.getUserId();
         if (id == null) {
             id = generateId();
-            userInfo.setUserId(id);
+            userDTO.setUserId(id);
         }
-        users.put(id, userInfo);
-        log.info(userInfo.toString());
+        users.put(id, userDTO);
+        log.info(userDTO.toString());
     }
 
     @Override
-    public UserInfo detail(Integer id) {
+    public UserDTO detail(Integer id) {
         return users.get(id);
     }
 

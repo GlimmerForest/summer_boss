@@ -1,6 +1,7 @@
 package com.william.boss.service;
 
-import com.william.boss.orm.model.UserInfo;
+
+import com.william.boss.dto.UserDTO;
 
 import java.util.List;
 
@@ -12,20 +13,20 @@ public interface IUserService {
      * 查询用户列表
      * @return 用户列表
      */
-    List<UserInfo> getAllUsers();
+    List<UserDTO> getAllUsers();
 
     /**
      * 添加用户信息
-     * @param userInfo 用户信息
+     * @param userDTO 用户信息
      */
-    void addOrEdit(UserInfo userInfo);
+    void addOrEdit(UserDTO userDTO);
 
     /**
      * 查询用户信息
      * @param id 用户id
      * @return 用户信息
      */
-    UserInfo detail(Integer id);
+    UserDTO detail(Integer id);
 
     /**
      * 删除用户

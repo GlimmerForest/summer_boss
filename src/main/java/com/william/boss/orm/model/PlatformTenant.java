@@ -3,83 +3,83 @@ package com.william.boss.orm.model;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
-import java.time.LocalDateTime;
+import com.baomidou.mybatisplus.annotation.Version;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.TableField;
+import com.william.boss.orm.model.AbstractModel;
 import java.io.Serializable;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
 
 /**
  * <p>
  * 平台租户信息表
  * </p>
  *
- * @author john
- * @since 2020-12-14
+ * @author john.wang
+ * @since 2021-07-15
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
+@Accessors(chain = true)
 @TableName("summer_platform_tenant")
-public class PlatformTenant extends Model<PlatformTenant> {
+@ApiModel(value="PlatformTenant对象", description="平台租户信息表")
+public class PlatformTenant extends AbstractModel<PlatformTenant> {
 
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    /**
-     * 租户名称
-     */
+    @ApiModelProperty(value = "租户名称")
     private String name;
 
-    /**
-     * 数据库资源id
-     */
+    @ApiModelProperty(value = "数据库资源id")
     private Integer dbResourceId;
 
-    /**
-     * 品牌名称
-     */
+    @ApiModelProperty(value = "品牌名称")
     private String brandName;
 
-    /**
-     * 企业名称
-     */
+    @ApiModelProperty(value = "企业名称")
     private String companyName;
 
-    /**
-     * 企业电话
-     */
+    @ApiModelProperty(value = "企业电话")
     private String companyTel;
 
-    /**
-     * 企业邮箱
-     */
+    @ApiModelProperty(value = "企业邮箱")
     private String companyEmail;
 
-    /**
-     * 企业地址
-     */
+    @ApiModelProperty(value = "企业地址")
     private String companyAddress;
 
-    /**
-     * 状态
-     */
+    @ApiModelProperty(value = "状态")
     private String status;
 
-    /**
-     * 图标
-     */
+    @ApiModelProperty(value = "图标")
     private String logo;
 
-    @TableField(fill = FieldFill.INSERT)
-    private LocalDateTime createTime;
 
-    @TableField(fill = FieldFill.INSERT_UPDATE)
-    private LocalDateTime updateTime;
+    public static final String ID = "id";
 
+    public static final String NAME = "name";
+
+    public static final String DB_RESOURCE_ID = "db_resource_id";
+
+    public static final String BRAND_NAME = "brand_name";
+
+    public static final String COMPANY_NAME = "company_name";
+
+    public static final String COMPANY_TEL = "company_tel";
+
+    public static final String COMPANY_EMAIL = "company_email";
+
+    public static final String COMPANY_ADDRESS = "company_address";
+
+    public static final String STATUS = "status";
+
+    public static final String LOGO = "logo";
 
     @Override
     protected Serializable pkVal() {

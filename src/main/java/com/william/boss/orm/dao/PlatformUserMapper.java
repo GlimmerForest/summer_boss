@@ -8,8 +8,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * 平台用户，用于登录系统 Mapper 接口
  * </p>
  *
- * @author john
- * @since 2020-12-14
+ * @author john.wang
+ * @since 2021-07-15
  */
 public interface PlatformUserMapper extends BaseMapper<PlatformUser> {
 

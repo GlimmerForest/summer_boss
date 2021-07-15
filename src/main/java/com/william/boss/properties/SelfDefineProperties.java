@@ -24,44 +24,11 @@ public class SelfDefineProperties {
     private String messageBasePath;
 
     /**
-     * 云存储配置
+     * 不需要拦截的资源
      */
-    private CloudConfig cloudConfig;
+    private String[] ignoreSources;
 
     private AuthConfig authConfig;
-
-    @Getter
-    @Setter
-    public static class CloudConfig {
-        /**
-         * 账号
-         */
-        private String accountName;
-        /**
-         * 密码
-         */
-        private String accountKey;
-        /**
-         * 端点
-         */
-        private String endPoint;
-        /**
-         * 协议
-         */
-        private String protocol;
-        /**
-         * 容器
-         */
-        private String containerName;
-        /**
-         * 基础路径
-         */
-        private String baseUrl;
-        /**
-         * 类型  azure:微软云
-         */
-        private String type;
-    }
 
     @Getter
     @Setter

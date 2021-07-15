@@ -1,5 +1,7 @@
 logging:
   config: classpath:logback.xml
+  level:
+    com.william.boss.orm: debug
 
 server:
   port: 8081
@@ -27,7 +29,7 @@ spring:
 
   datasource:
     name: boss
-    url: jdbc:postgresql://175.24.121.139:7003/summer_boss?useAffectedRows=true&currentSchema=public
+    url: jdbc:postgresql://1.15.132.121:7003/summer_boss?useAffectedRows=true&currentSchema=public
     username: postgres
     password: admin
     type: com.alibaba.druid.pool.DruidDataSource
@@ -103,15 +105,34 @@ self-define-properties:
   messageBasePath: classpath:messages/message
 #  linux配置
 #    messageBasePath: file:/data/app/resources/messages/message
-  cloudConfig:
-    accountName:
-    accountKey:
-    endPoint: core.chinacloudapi.cn
-    protocol: https
-    containerName: boss
-    baseUrl:
-    type:   # azure 微软云
+
+  ignoreSources:
+    - html
+    - ico
+    - js
+    - css
+    - jpg
+    - swagger-resources
+    - v2
 
   authConfig:
     apiTokenHeader: access-token
     expire: 7200
+
+location:
+  type: baidu # 用于区分用哪个平台的定位服务,如百度,阿里
+  serviceUrl: http://api.map.baidu.com/location/ip?ak={0}&coor=bd09ll&ip={1} # 百度定位服务接口,开发文档 https://lbsyun.baidu.com/index.php?title=webapi/ip-api
+  appKey: Y8125nlttvjMzqrK9n4mVEnNYnmccfoq   # 百度应用访问key,申请并激活百度开发者账号,创建个应用就可以获得
+
+swagger:
+  basePackage: com.william.boss.rest
+  description: 项目接口文档url (http://localhost[:port]/doc.html)
+  globalParams:
+    - name: token
+      paramType: header
+      javaType: string
+      description: 支持 jwt token
+    - name: requestId
+      paramType: header
+      javaType: string
+      description: 请求唯一标识

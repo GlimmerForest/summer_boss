@@ -31,7 +31,7 @@ public class PlatformUserServiceImpl implements IPlatformUserService {
     @Override
     public void save(UserVO userVO) {
         PlatformUser user = new PlatformUser();
-        BeanUtil.copyProperties(userVO, user, null, true);
+        BeanUtil.copyProperties(userVO, user, null);
 
         Object context = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 

@@ -37,25 +37,28 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        //使用自己的前置拦截器
-        http.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
-        // 定制我们自己的 session 策略：调整为让 Spring Security 不创建和使用 session
-        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        // 请求进行拦截 验证 accessToken
-        http.authorizeRequests()
-                //指定需要拦截的uri
-                .antMatchers("/boss/login/**").permitAll()
-                .antMatchers("/boss/**").authenticated()
-                .antMatchers("/rest/**").authenticated()
-                .antMatchers("/doc.html").hasAuthority("ROLE_ADMIN")
-                ///其他请求都可以访问
-                .anyRequest().permitAll()
-                .and().exceptionHandling().authenticationEntryPoint(tokenErrorEntryPoint)
-                .accessDeniedHandler(accessDeniedHandlerImpl())
-                //解决跨域
-                .and().cors()
-                // 关闭csrf防护
-                .and().csrf().disable();
+        //使用自己的前置拦截器(如果前置拦截器把认证和鉴权的事做了,感觉就没必要用SpringSecurity了,所以这里只做认证,把鉴权交给SpringSecurity)
+        http.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class)
+            // 定制我们自己的 session 策略：调整为让 Spring Security 不创建和使用 session
+            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            // 默认登录页面'/login' 默认用户名/密码字段 username/password
+            .and().formLogin()
+            // 请求进行拦截 验证 accessToken
+            .and().authorizeRequests()
+            //登录接口/页面、swagger可任意访问
+            .antMatchers("/boss/login/**","/doc.html").permitAll()
+            // 功能页面需要鉴权
+            .antMatchers("/boss/**").authenticated()
+            // 测试接口可任意访问
+            .antMatchers("/test/**").permitAll()
+            ///其他请求都可以访问,包括swagger js css等资源文件
+            .anyRequest().permitAll()
+            .and().exceptionHandling().authenticationEntryPoint(tokenErrorEntryPoint)
+            .and().exceptionHandling().accessDeniedHandler(accessDeniedHandlerImpl())
+            //解决跨域
+            .and().cors()
+            // 关闭csrf防护
+            .and().csrf().disable();
     }
 
     @Bean

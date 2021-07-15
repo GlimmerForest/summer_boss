@@ -24,12 +24,19 @@
         <azure.version>1.2.8</azure.version>
         <jjwt.version>0.11.2</jjwt.version>
         <bcprov.version>1.67</bcprov.version>
+        <fastjson.version>1.2.76</fastjson.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>${fastjson.version}</version>
         </dependency>
 
         <dependency>

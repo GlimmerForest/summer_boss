@@ -8,8 +8,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * 平台租户信息表 Mapper 接口
  * </p>
  *
- * @author john
- * @since 2020-12-14
+ * @author john.wang
+ * @since 2021-07-15
  */
 public interface PlatformTenantMapper extends BaseMapper<PlatformTenant> {
 

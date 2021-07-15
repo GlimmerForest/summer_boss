@@ -1,6 +1,7 @@
 package com.william.boss.filter;
 
 import com.william.boss.auth.JwtUtil;
+import com.william.boss.constant.CommonConstants;
 import com.william.boss.properties.SelfDefineProperties;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -35,7 +36,21 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
+        // 不校验静态资源和swagger接口
+        for (String ignore: properties.getIgnoreSources()) {
+            if (request.getRequestURI().contains(ignore)){
+                chain.doFilter(request, response);
+                return;
+            }
+        }
+
         String token = request.getHeader(properties.getAuthConfig().getApiTokenHeader());
+        // 测试token不校验
+        if (CommonConstants.TOKEN.equals(token)) {
+            chain.doFilter(request, response);
+            return;
+        }
+
         if (!StringUtils.isEmpty(token)) {
             String username = JwtUtil.getInfoFromToken(token).getUsername();
             if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
@@ -66,4 +81,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             }
         }
     }
+
+
+
 }

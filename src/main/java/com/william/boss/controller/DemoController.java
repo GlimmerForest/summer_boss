@@ -1,6 +1,8 @@
 package com.william.boss.controller;
 
-import com.william.boss.orm.model.UserInfo;
+import com.william.boss.dto.UserDTO;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
@@ -21,31 +23,24 @@ import java.util.*;
 @Slf4j
 @Controller
 @RequestMapping("/demo")
+@Api(tags = "demo")
 public class DemoController {
 
     @Resource
     private MessageSource messageSource;
-    @Resource
-    private DataSource dataSource;
-
-    @GetMapping("/1")
-    @ResponseBody
-    public String echo(String content) {
-        log.info(dataSource.toString());
-        return content;
-    }
 
     @RequestMapping("/2")
-    public ModelAndView demo(Model model, @ModelAttribute UserInfo userInfo, Integer id, String lang) {
+    @ApiOperation("thymeleaf")
+    public ModelAndView demo(Model model, @ModelAttribute UserDTO userInfo, Integer id, String lang) {
         // 测试遍历
-        List<UserInfo> userList = new ArrayList<>(10);
+        List<UserDTO> userList = new ArrayList<>(10);
 
-        UserInfo user;
+        UserDTO user;
         if (userInfo != null && userInfo.getUserId() != null) {
             user = userInfo;
             if (userInfo.getUserId() == null) {userInfo.setUserId(1);}
         } else {
-            user = new UserInfo().setUserId(1).setUserName("小白").setGender("男").setMobile("18817191234");
+            user = new UserDTO().setUserId(1).setUserName("小白").setGender("男").setMobile("18817191234");
         }
 
         userList.add(user);

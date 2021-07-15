@@ -5,6 +5,12 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.william.boss.orm.model.PlatformTenant">
         <id column="id" property="id" />
+        <result column="version" property="version" />
+        <result column="is_del" property="isDel" />
+        <result column="creator_id" property="creatorId" />
+        <result column="updater_id" property="updaterId" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
         <result column="name" property="name" />
         <result column="db_resource_id" property="dbResourceId" />
         <result column="brand_name" property="brandName" />
@@ -14,8 +20,6 @@
         <result column="company_address" property="companyAddress" />
         <result column="status" property="status" />
         <result column="logo" property="logo" />
-        <result column="create_time" property="createTime" />
-        <result column="update_time" property="updateTime" />
     </resultMap>
 
 </mapper>
