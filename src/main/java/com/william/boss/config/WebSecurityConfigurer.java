@@ -48,7 +48,7 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
             //登录接口/页面、swagger可任意访问
             .antMatchers("/boss/login/**","/doc.html").permitAll()
             // 功能页面需要鉴权
-            .antMatchers("/boss/**").authenticated()
+            .antMatchers("/boss/**").permitAll()
             // 测试接口可任意访问
             .antMatchers("/test/**").permitAll()
             ///其他请求都可以访问,包括swagger js css等资源文件
@@ -63,7 +63,7 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+        return new BCryptPasswordEncoder(12);
     }
 
     @Bean

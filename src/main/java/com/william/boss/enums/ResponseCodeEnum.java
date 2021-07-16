@@ -19,7 +19,7 @@ public enum ResponseCodeEnum {
     /**
      * token错误
      */
-    TOKEN_ERROR(600, "success");
+    TOKEN_ERROR(600, "token err");
 
     ResponseCodeEnum(Integer  code, String message) {
         this.code = code;

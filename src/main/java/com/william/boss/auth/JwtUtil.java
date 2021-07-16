@@ -1,12 +1,12 @@
 package com.william.boss.auth;
 
 import com.william.boss.constant.CommonConstants;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import io.jsonwebtoken.jackson.io.JacksonDeserializer;
 import io.jsonwebtoken.jackson.io.JacksonSerializer;
 import io.jsonwebtoken.lang.Maps;
 import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.security.SignatureException;
 import org.joda.time.DateTime;
 
 import java.security.Key;
@@ -41,7 +41,7 @@ public class JwtUtil {
      * @return 用户信息
      */
     @SuppressWarnings("unchecked,rawtypes")
-    public static JwtInfo getInfoFromToken(String token) {
+    public static JwtInfo getInfoFromToken(String token) throws ExpiredJwtException, UnsupportedJwtException, MalformedJwtException, SignatureException, IllegalArgumentException {
         return Jwts.parserBuilder()
                 .deserializeJsonWith(new JacksonDeserializer(Maps.of(CommonConstants.JWT_KEY_USER, JwtInfo.class).build()))
                 .setSigningKey(KEY).build().parseClaimsJws(token).getBody().get(CommonConstants.JWT_KEY_USER, JwtInfo.class);

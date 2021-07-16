@@ -27,4 +27,9 @@ public interface CommonConstants {
 
     // 测试配置
     String TOKEN = "token123";
+
+    /**
+     * 租户数据源key, 系统名称-租户id-服务名称
+     */
+    String DS_KEY = "summer-{0}-{1}";
 }

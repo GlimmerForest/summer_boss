@@ -25,6 +25,7 @@
         <jjwt.version>0.11.2</jjwt.version>
         <bcprov.version>1.67</bcprov.version>
         <fastjson.version>1.2.76</fastjson.version>
+        <dynamic-datasource.version>3.4.0</dynamic-datasource.version>
     </properties>
 
     <dependencies>
@@ -84,6 +85,11 @@
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
             <version>${mybatisplus.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
+            <version>${dynamic-datasource.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

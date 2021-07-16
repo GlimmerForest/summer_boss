@@ -29,7 +29,7 @@ public class BossUserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         // 用户信息和认证逻辑不在一个服务时处理逻辑
-        ResponseResult<UserVO> response = new ResponseResult<>(ResponseCodeEnum.SUCCESS, this.userService.getUser(null, username));
+        ResponseResult<UserVO> response = ResponseResult.success(this.userService.getUser(username));
         if (response.getData() == null) {
             log.info("用户{}不存在", username);
             return null;
@@ -40,7 +40,7 @@ public class BossUserDetailsServiceImpl implements UserDetailsService {
             //用户角色封装处理
             List<SimpleGrantedAuthority> authorities = new ArrayList<>(10);
             if (user.getRoles() != null) {
-                user.getRoles().forEach(f -> authorities.add(new SimpleGrantedAuthority(f)));
+                user.getRoles().forEach(f -> authorities.add(new SimpleGrantedAuthority(String.valueOf(f))));
             }
 
             return new User(username, user.getPassword(), authorities);

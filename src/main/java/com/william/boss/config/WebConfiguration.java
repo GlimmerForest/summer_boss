@@ -1,15 +1,11 @@
 package com.william.boss.config;
 
-import com.william.boss.filter.ResponseFilter;
-import com.william.boss.aop.CommonHandlerInterceptor;
 import com.william.boss.properties.SelfDefineProperties;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.*;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
@@ -40,16 +36,6 @@ public class WebConfiguration implements WebMvcConfigurer {
     }
 
     /**
-     * 配置拦截器
-     * @param registry 拦截器注册器
-     */
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new CommonHandlerInterceptor()).addPathPatterns("/user/**", "/demo/**");
-        registry.addInterceptor(localeChangeInterceptor());
-    }
-
-    /**
      * 配置多语言解析器,默认使用的是 AcceptHeaderLocaleResolver 不支持param传参切语言
      * @return 多语言解析器
      */
@@ -72,7 +58,6 @@ public class WebConfiguration implements WebMvcConfigurer {
         return messageBundle;
     }
 
-
     /**
      * 配置多语言拦截器
      * @return 多语言拦截器
@@ -82,19 +67,5 @@ public class WebConfiguration implements WebMvcConfigurer {
         LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
         localeChangeInterceptor.setParamName("lang");
         return localeChangeInterceptor;
-    }
-
-    /**
-     * 注册过滤器
-     * @return 过滤器注册器
-     */
-    @Bean
-    public FilterRegistrationBean<ResponseFilter> registerResponseFilter() {
-        FilterRegistrationBean<ResponseFilter> bean = new FilterRegistrationBean<>();
-        bean.setFilter(new ResponseFilter());
-        bean.setName("responseFilter");
-        bean.addUrlPatterns("/*");
-        bean.setOrder(1);
-        return bean;
     }
 }

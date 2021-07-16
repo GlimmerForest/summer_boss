@@ -15,7 +15,7 @@
         <result column="password" property="password" />
         <result column="last_login_time" property="lastLoginTime" />
         <result column="login_error_count" property="loginErrorCount" />
-        <result column="tenant_ids" property="tenantIds" />
+        <result column="tenant_id" property="tenantId" />
         <result column="user_type" property="userType" />
         <result column="status" property="status" />
         <result column="profile_photo" property="profilePhoto" />

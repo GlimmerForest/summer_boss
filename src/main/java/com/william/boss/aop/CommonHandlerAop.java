@@ -10,6 +10,10 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.util.ContentCachingResponseWrapper;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author john
@@ -19,6 +23,9 @@ import org.springframework.web.servlet.ModelAndView;
 @Slf4j
 @Order(1)
 public class CommonHandlerAop {
+
+    @Resource
+    private HttpServletResponse response;
 
     @Pointcut("execution(public * com.william.boss.controller..*Controller.*(..))")
     public void controllerInterceptor() {
@@ -33,6 +40,11 @@ public class CommonHandlerAop {
                 KeyValue<String, String> keyValue = new KeyValue<>();
                 keyValue.setKey(((ModelAndView)o).getViewName());
                 ViewContentHolder.set(keyValue);
+            }
+
+            if (response instanceof ContentCachingResponseWrapper) {
+                ContentCachingResponseWrapper responseWrapper = (ContentCachingResponseWrapper)response;
+                System.out.println(new String(responseWrapper.getContentAsByteArray()));
             }
         } finally {
             String response = String.valueOf(o);

@@ -34,10 +34,10 @@ public class SysUserRole extends AbstractModel<SysUserRole> {
     private Integer id;
 
     @ApiModelProperty(value = "登录用户id")
-    private Long userId;
+    private Integer userId;
 
     @ApiModelProperty(value = "角色id")
-    private Long roleId;
+    private Integer roleId;
 
 
     public static final String ID = "id";

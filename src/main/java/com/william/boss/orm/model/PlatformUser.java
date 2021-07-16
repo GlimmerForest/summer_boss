@@ -47,7 +47,7 @@ public class PlatformUser extends AbstractModel<PlatformUser> {
     private Integer loginErrorCount;
 
     @ApiModelProperty(value = "拥有的租户")
-    private Integer tenantIds;
+    private Integer tenantId;
 
     @ApiModelProperty(value = "用户类型")
     private String userType;
@@ -87,7 +87,7 @@ public class PlatformUser extends AbstractModel<PlatformUser> {
 
     public static final String LOGIN_ERROR_COUNT = "login_error_count";
 
-    public static final String TENANT_IDS = "tenant_ids";
+    public static final String TENANT_ID = "tenant_id";
 
     public static final String USER_TYPE = "user_type";
 

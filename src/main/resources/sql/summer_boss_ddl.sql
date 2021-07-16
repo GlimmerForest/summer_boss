@@ -61,7 +61,7 @@ CREATE TABLE public.summer_platform_user (
 	"password" varchar(255) NULL DEFAULT NULL::character varying,
 	last_login_time varchar(30) NULL DEFAULT NULL::character varying,
 	login_error_count int4 NULL,
-	tenant_ids _int4 NULL,
+	tenant_id int4 NULL,
 	user_type varchar(255) NULL DEFAULT NULL::character varying,
 	status varchar(2) NULL DEFAULT NULL::character varying,
 	profile_photo varchar(50) NULL,
@@ -84,7 +84,7 @@ COMMENT ON COLUMN public.summer_platform_user.username IS '用户名';
 COMMENT ON COLUMN public.summer_platform_user.password IS '密码';
 COMMENT ON COLUMN public.summer_platform_user.last_login_time IS '上次登录时间';
 COMMENT ON COLUMN public.summer_platform_user.login_error_count IS '登录错误次数';
-COMMENT ON COLUMN public.summer_platform_user.tenant_ids IS '拥有的租户';
+COMMENT ON COLUMN public.summer_platform_user.tenant_id IS '拥有的租户';
 COMMENT ON COLUMN public.summer_platform_user.user_type IS '用户类型';
 COMMENT ON COLUMN public.summer_platform_user.status IS '状态';
 COMMENT ON COLUMN public.summer_platform_user.profile_photo IS '用户头像';
@@ -292,8 +292,8 @@ COMMENT ON COLUMN public.summer_sys_user_department.version IS '乐观锁版本�
 DROP TABLE if exists public.summer_sys_user_role;
 CREATE TABLE public.summer_sys_user_role (
 	id serial,
-	user_id int8 NULL,
-	role_id int8 NULL,
+	user_id int4 NULL,
+	role_id int4 NULL,
 	"version" int4 NULL DEFAULT 0,
 	is_del int2 NULL DEFAULT 0,
 	creator_id int4 NULL,
@@ -313,7 +313,7 @@ CREATE TABLE public.summer_platform_tenant_datasource (
 	datasource_id int4 NULL,
 	tenant_id int4 NULL,
 	"tenant_name" varchar(20) NULL DEFAULT 'public'::character varying,
-	"module" varchar(20) NULL DEFAULT 'public'::character varying,
+	"service" varchar(20) NULL DEFAULT 'public'::character varying,
 	"version" int4 NULL DEFAULT 0,
 	is_del int2 NULL DEFAULT 0,
 	creator_id int4 NULL,

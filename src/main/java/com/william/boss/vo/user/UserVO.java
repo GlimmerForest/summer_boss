@@ -72,5 +72,5 @@ public class UserVO {
     /**
      * 用户角色
      */
-    private List<String> roles;
+    private List<Integer> roles;
 }
