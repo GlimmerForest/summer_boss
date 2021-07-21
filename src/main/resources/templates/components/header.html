@@ -1,7 +1,5 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<header th:fragment="header" class="header">
-    <div class="logo">
-        <a class="" href="/">Summer Boss Site</a>
-    </div>
+<header th:fragment="header(header)">
+    <b th:text="${header}"></b>
 </header>
 </html>

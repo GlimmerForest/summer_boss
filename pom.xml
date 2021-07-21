@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.4.0</version>
+        <version>2.4.4</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.william</groupId>
@@ -19,7 +19,7 @@
         <knife4j.version>2.0.8</knife4j.version>
         <mybatisplus.version>3.4.1</mybatisplus.version>
         <pgdriver.version>42.1.4</pgdriver.version>
-        <druid.version>1.2.3</druid.version>
+        <druid.version>1.2.5</druid.version>
         <velocity.version>2.2</velocity.version>
         <azure.version>1.2.8</azure.version>
         <jjwt.version>0.11.2</jjwt.version>

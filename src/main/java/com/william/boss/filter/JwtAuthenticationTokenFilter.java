@@ -91,6 +91,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         } else {
             // 测试先放过token
             chain.doFilter(request, response);
+            wrapperResponse.copyBodyToResponse();
 //            throw new BusinessException(ResponseCodeEnum.TOKEN_ERROR);
         }
     }

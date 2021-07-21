@@ -5,15 +5,17 @@ import com.william.boss.service.IUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
 import javax.annotation.Resource;
 
 /**
  * @author john
  */
-@RestController
+@Controller
 @RequestMapping("/user")
 @Slf4j
 @Api(tags = "demo")
@@ -26,11 +28,11 @@ public class UserController {
     private ModelAndView getAllUsers(Model model) {
         model.addAttribute("userList", userService.getAllUsers());
         return new ModelAndView("user/index","userModel",model);
-
     }
 
     @GetMapping("/form")
-    public ModelAndView createForm(Model model, Integer id){
+    @ApiOperation("user form")
+    private ModelAndView form(Model model, Integer id) {
         UserDTO userInfo = null;
         if (id != null) {
             userInfo = userService.detail(id);
@@ -47,7 +49,7 @@ public class UserController {
         return new ModelAndView("redirect:/user/list");
     }
 
-    @DeleteMapping("/delete")
+    @GetMapping("/delete")
     @ApiOperation("user delete")
     private ModelAndView delete(Integer id) {
         userService.delete(id);

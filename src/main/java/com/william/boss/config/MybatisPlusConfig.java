@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @EnableTransactionManagement
 @Configuration
-@MapperScan(basePackages = {"com.summer.tools.mybatisplus.orm.dao"})
+@MapperScan(basePackages = {"com.william.boss.orm.dao"})
 public class MybatisPlusConfig {
 
     @Bean
