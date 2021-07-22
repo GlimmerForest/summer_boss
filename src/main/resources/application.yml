@@ -38,7 +38,7 @@ spring:
       datasource:
         pgSql:
           driver-class-name: org.postgresql.Driver
-          url: jdbc:postgresql://1.15.132.121:7003/summer_boss?useAffectedRows=true&currentSchema=public
+          url: jdbc:postgresql://1.15.132.121:7003/william_boss?useAffectedRows=true&currentSchema=public
           username: postgres
           password: admin
     druid:
@@ -59,24 +59,24 @@ spring:
         login-username: admin
         login-password: admin
         url-pattern: /druid/*
-#  redis:
-          ##    database: 0
-          ##    host: 175.24.121.139
-          ##    port: 7000
-          ##    password: admin
-          ##    jedis:
-          ##      pool:
-          ##        max-active: 30  # 连接池最大连接数（使用负值表示没有限制）
-          ##        max-wait: -1  # 连接池最大阻塞等待时间（使用负值表示没有限制）
-          ##        max-idle: 30  # 连接池中的最大空闲连接
-          ##        min-idle: 7  # 连接池中的最小空闲连接
-          ##    timeout: 6000  # 连接超时时间（毫秒）
-          ##  rabbitmq:
-          ##    host: 175.24.121.139
-          ##    port: 7001
-          ##    username: admin
-        ##    password: admin
-        ##    virtual-host: admin
+  redis:
+    database: 0
+    host: 175.24.121.139
+    port: 7000
+    password: admin
+    jedis:
+      pool:
+        max-active: 30  # 连接池最大连接数（使用负值表示没有限制）
+        max-wait: -1  # 连接池最大阻塞等待时间（使用负值表示没有限制）
+        max-idle: 30  # 连接池中的最大空闲连接
+        min-idle: 7  # 连接池中的最小空闲连接
+    timeout: 6000  # 连接超时时间（毫秒）
+  rabbitmq:
+    host: 175.24.121.139
+    port: 7001
+    username: admin
+    password: admin
+    virtual-host: admin
 
   main:
     allow-bean-definition-overriding: true

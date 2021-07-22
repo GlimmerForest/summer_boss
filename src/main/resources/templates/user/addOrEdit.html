@@ -8,12 +8,18 @@
 
     <form th:action="@{/user}" method="post" th:object="${userModel.user}">
         <input type="hidden" name="userId" th:value="*{userId}">
-        名字:
-        <input type="text" name="userName" th:value="*{userName}">
-        电话:
-        <input type="text" name="mobile" th:value="*{mobile}">
-        性别:
-        <input type="text" name="gender" th:value="*{gender}">
+
+        <label> 名字:
+            <input type="text" name="userName" th:value="*{userName}">
+        </label>
+
+        <label> 电话:
+            <input type="text" name="mobile" th:value="*{mobile}">
+        </label>
+
+        <label> 性别:
+            <input type="text" name="gender" th:value="*{gender}">
+        </label>
         <br>
         <input type="submit" value="提交">
         <input type="reset" value="重置" />
